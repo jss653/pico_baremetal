@@ -1,7 +1,7 @@
 #CMakeLists.txt
 # Create a CodeBlocks project:
 # cmake . -G "CodeBlocks - Unix Makefiles"
-# sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program build/smarthp.elf verify reset exit"
+# sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program build/baremetal.elf verify reset exit"
 
 
 cmake_minimum_required(VERSION 3.13)

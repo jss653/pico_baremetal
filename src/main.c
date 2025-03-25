@@ -19,11 +19,7 @@
  * \ref state_e
 
  * \ref wifi
- * \ref sensor
- * \ref server
- * \ref ntp
  * \ref timer
- * \ref pubsub
  *
  */
 
@@ -43,8 +39,6 @@
 //#include "lwip/apps/httpd.h"
 //#include "lwipopts.h"
 
-#include "sensor/sensor.h"
-#include "server/server.h"
 #include "wifi/wifi.h"
 #include "timer/timer.h"
 #include "errorhandler/errorhandler.h"
