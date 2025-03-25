@@ -1,0 +1,7 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+// We can place all Cmake variables here. Like defines dependent on project configuration
+
+#define WIFI_ERROR_BASE 1234
+
+#endif

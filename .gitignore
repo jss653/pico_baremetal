@@ -1,0 +1,5 @@
+build/
+src/wifi/wifinet.h
+src/config.h
+doxygen/doxygen.log
+doxygen/html
