@@ -54,7 +54,7 @@ wifi_err_t wifi_connect()
 
    // Enables Wi-Fi STA (Station) mode
    cyw43_arch_enable_sta_mode();
-   netif_set_hostname(netif_default, "smarthp");
+   netif_set_hostname(netif_default, "baremetal");
 
    // Connect to the WiFI network w timeout
    if(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 30000))
