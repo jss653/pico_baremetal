@@ -20,6 +20,7 @@
 
  * \ref wifi
  * \ref timer
+ * \ref pubsub
  *
  */
 
@@ -43,6 +44,7 @@
 #include "timer/timer.h"
 #include "errorhandler/errorhandler.h"
 #include "config.h"
+#include "pubsub/pubsub.h"
 
 struct state;
 typedef void (*state_func_t)(struct state*);    /**< function pointer template for machine state handling */
@@ -79,7 +81,7 @@ state_t state = {STATE_DEFAULT, state_init, 0,0,0}; //We're about to enter state
  * \return void
  *
  */
-void timerEventHandler(event_t event)
+void timerEventHandler(subscriptionEvent_t event)
 {
    watchdog_update();
    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN,(cyw43_arch_gpio_get(CYW43_WL_GPIO_LED_PIN) ^ 1));
@@ -102,15 +104,22 @@ void timerEventHandler(event_t event)
  */
 int main(int argc, char* argv[])
 {
+   int subscriptionID = 0;
+
    // Init SDK and hw. This HAS to be done before anything else, hence the placement in main
    assert(stdio_init_all() == true);
    // Init SDK and hw
    assert(cyw43_arch_init() == SMARTHP_NO_ERROR);
 
 // TODO (jss#5#03/17/25): Move this to SW_INIT once state machine is in place
-   assert(timer_init() == TIMER_ERROR_NONE);
-   register_callback(&timerEventHandler);
 
+   // Init all services available for this app
+   // init functions should never fail unless there is secondary failure.
+   // Assert to expect the unexpected
+   assert(pubsub_init() == PUBSUB_ERROR_NONE);
+
+   assert(timer_init() == TIMER_ERROR_NONE);
+   timer_subscribe(timer_1000mS, &timerEventHandler, &subscriptionID);
  // TODO (jss#1#03/17/25): Move this to SW_INIT once state machine is in place
    assert(wifi_init() == WIFI_ERROR_NONE);
    wifi_connect();

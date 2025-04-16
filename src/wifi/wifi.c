@@ -29,6 +29,7 @@
 #include "../timer/timer.h"
 #include "wifi.h"
 #include "wifinet.h"
+static int subscriptionID = 0;
 
 /** \brief wifi_init
  *
@@ -41,7 +42,7 @@ wifi_err_t wifi_init()
    return err;
 }
 
-void wifiEventHandler(event_t event);
+void wifiEventHandler(subscriptionEvent_t event);
 
 /** \brief wifi_connect
  *
@@ -54,13 +55,13 @@ wifi_err_t wifi_connect()
 
    // Enables Wi-Fi STA (Station) mode
    cyw43_arch_enable_sta_mode();
-   netif_set_hostname(netif_default, "baremetal");
+   netif_set_hostname(netif_default, "smarthp");
 
    // Connect to the WiFI network w timeout
    if(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 30000))
       err = WIFI_TIMEOUT;
    else
-      register_callback(&wifiEventHandler);
+      timer_subscribe(timer_10000mS, &wifiEventHandler, &subscriptionID);
 
    return err;
 }
@@ -78,7 +79,7 @@ int wifi_reconnect()
 //#define CYW43_LINK_FAIL         (-1)    ///< Connection failed
 //#define CYW43_LINK_NONET        (-2)    ///< No matching SSID found (could be out of range, or down)
 //#define CYW43_LINK_BADAUTH      (-3)    ///< Authenticatation failure
-void wifiEventHandler(event_t event)
+void wifiEventHandler(subscriptionEvent_t event)
 {
 //   const char* linkstatus[] = {"LINK_DOWN", "LINK_JOIN", "LINK_NOIP", "LINK_UP"};
 //   printf("tcpip linkstatus %s\n", linkstatus[cyw43_tcpip_link_status(&cyw43_state, CYW43_ITF_STA)]);
