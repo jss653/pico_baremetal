@@ -19,6 +19,13 @@ Clone the Pico SDK repository into a preferred directory, such as ./pico:
 ``cd pico-sdk``  
 ``git submodule update --init``  
 
+Verify the installation by checking the SDK and tool versions:
+
+``arm-none-eabi-gcc --version``  
+``gdb-multiarch --version``  
+``cmake --version``  
+``openocd --version``  
+
 Clone this repo into the pico folder  
 ``cd ../..``  
 ``git clone git@github.com:jss653/pico_baremetal.git``  
