@@ -34,8 +34,8 @@ NOTE. You need to provide the file /pico/pico_baremetal/src/wifi/wifinet.h: or y
       |          ^~~~~~~~~~~
 ../pico/pico_baremetal/src/wifi/wifinet.h
 
-#ifndef __WIFI_H__
-#define __WIFI_H__
+#ifndef __WIFINET_H__
+#define __WIFINET_H__
 
 #define WIFI_SSID "network"
 #define WIFI_PASSWORD "password"
