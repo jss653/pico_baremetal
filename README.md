@@ -34,7 +34,8 @@ Set the PICO_SDK_PATH environment variable by adding it to your shell profile:
 
 ``echo 'export PICO_SDK_PATH=$HOME/pico/pico-sdk' >> ~/.bashrc``  
 ``source ~/.bashrc``  
-or update CMakeLists.txt with the path.
+
+or update CMakeLists.txt with the path. ``set(PICO_SDK_PATH "/home/jss653/projects/software/pico/pico-sdk")``  
 
 NOTE. You need to provide the file /pico/pico_baremetal/src/wifi/wifinet.h: or you'll receive an error : No such file or directory
    31 | #include "wifinet.h"
@@ -56,5 +57,10 @@ Build this project with:
 ``cmake ..``  
 ``make``  
 
+If you want, you can create a CodeBlocks project using cmake
+``cmake . -G "CodeBlocks - Unix Makefiles"``  
+
+To load your program using a JTAG interface
+``sudo openocd -f interface/cmsis-dap.cfg -f target/rp2040.cfg -c "adapter speed 5000" -c "program build/baremetal.elf verify reset exit"``  
 
 
